@@ -25,10 +25,8 @@ func main() {
 	connection := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s",
 		o.DbHost, o.DbPort, o.DbUser, o.DbName, o.DbPassword)
 
-	accoundService := client.Bind.ToController("account.provider", &bind.AccountBind{}).(bind.IAccountBind)
-	fmt.Println("accoundService", accoundService)
-	controller := passport.PassportController(services.AuthService(connection), o.Secret)
-	accoundService.CreateAccount("dddd@ddd.dd")
+	accoundService := client.Bind.ToController("account", &bind.AccountBind{}).(bind.IAccountBind)
+	controller := passport.PassportController(services.AuthService(connection), accoundService, o.Secret)
 	client.Api.Controller(controller)
 	<-client.Run()
 }

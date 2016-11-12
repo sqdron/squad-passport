@@ -7,7 +7,9 @@ type SignupRequest struct {
 }
 
 func (c *passport) Signup(r SignupRequest) error {
-	fmt.Println("Signup", r)
-	return nil
+	fmt.Println("c.account.CreateAccount(r.Email)", r.Email)
+	res, err := c.account.CreateAccount(r.Email)
+	fmt.Println(res, err)
+	return err
 }
 
